@@ -16,3 +16,17 @@
   gap: 6.25rem;
   align-content: center;
 }
+
+.container aside main a:first-child::before {
+  width: 0.25rem;
+  height: 3.5rem;
+  content: "";
+  position: absolute;
+  left: 0;
+  border-radius: 0 5px 5px 0;
+  background: var(--blue);
+}
+
+.container aside main a:last-child {
+  opacity: 0.5;
+}

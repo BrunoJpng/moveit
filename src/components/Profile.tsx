@@ -8,15 +8,15 @@ interface ProfileProps {
   name: string;
 }
 
-export const Profile: React.FC<ProfileProps> = ({ image, name }) => {
+export function Profile(props: ProfileProps) {
   const { level } = useContext(ChallengesContext);
 
   return (
     <div className={styles.profileContainer}>
-      <img src={image} alt={name} />
+      <img src={props.image} alt={props.name} />
 
       <div>
-        <strong>{name}</strong>
+        <strong>{props.name}</strong>
         <p>
           <img src="icons/level.svg" alt="Level" />
           {level}

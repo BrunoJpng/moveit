@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
+
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
-import { getSession, Session } from 'next-auth/client';
+import { getSession, signOut, Session } from 'next-auth/client';
 import { useRouter } from 'next/dist/client/router';
 
 import { CompletedChallenges } from "../components/CompletedChallenges";
@@ -9,6 +10,7 @@ import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
 import { Profile } from "../components/Profile";
 import { ChallengeBox } from "../components/ChallengeBox";
+import { Sidebar } from '../components/Sidebar';
 
 import { CountdownProvider } from '../contexts/CountdownContext';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
@@ -43,11 +45,12 @@ export default function Home(props: HomeProps) {
         </Head>
 
         <ExperienceBar />
+        <Sidebar />
 
         <CountdownProvider>
           <section>
             <div>
-              <Profile image={session.user.image} name={session.user.name} />
+              <Profile image={session?.user.image} name={session?.user.name} />
               <CompletedChallenges />
               <Countdown />
             </div>

@@ -1,0 +1,53 @@
+.leaderboardContainer {
+  height: 100vh;
+  width: 90%;
+  max-width: 992px;
+  margin: 0 auto;
+  padding-top: 2.5rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboardContainer aside main a:first-child {
+  opacity: 0.5;
+}
+
+.leaderboardContainer aside main a:last-child::before {
+  width: 0.25rem;
+  height: 3.5rem;
+  content: "";
+  position: absolute;
+  left: 0;
+  border-radius: 0 5px 5px 0;
+  background: var(--blue);
+}
+
+.leaderboardContainer strong {
+  font-weight: 600;
+  font-size: 2.25rem;
+  color: var(--title);
+}
+
+.leaderboardContainer table {
+  margin-top: 2.5rem;
+  border-spacing: 0 8px;
+}
+
+.leaderboardContainer table tr th {
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  text-align: initial;
+  opacity: 0.5;
+  padding: 0 0 1rem 1.5rem;
+}
+
+.leaderboardContainer table tr th:first-child {
+  padding-left: 0;
+}
+
+.leaderboardContainer table tr th:last-child {
+  text-align: center;
+  padding-left: 0;
+}
