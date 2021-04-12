@@ -22,7 +22,6 @@
 }
 
 .sidebarContainer main a {
-  cursor: pointer;
   display: flex;
   align-items: center;
 }
