@@ -78,3 +78,24 @@
   color: var(--text);
   cursor: not-allowed;
 }
+
+.countdownButton img {
+  margin-left: 1rem;
+}
+
+.countdownButtonActive + div,
+.countdownButton:disabled + div {
+  flex: 1;
+  height: 4px;
+  border-radius: 0 0 5px 5px;
+  background: var(--gray-line);
+  position: relative;
+  margin-top: -4px;
+}
+
+.countdownButtonActive + div > div,
+.countdownButton:disabled + div > div {
+  height: 4px;
+  border-radius: 0 0 5px 5px;
+  background: var(--green);
+}

@@ -1,13 +1,28 @@
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/client";
+import Head from 'next/head';
+
 import { Sidebar } from "../components/Sidebar";
 import { UserItem } from "../components/UserItem";
 
+import { prisma } from '../prisma';
+import { User } from '@prisma/client';
+
+import withAuth from "../utils/withAuth";
+
 import styles from "../styles/pages/Leaderboard.module.css";
 
-export default function Leaderboard() {
-  const users = [];
-  
+interface LeaderboardProps {
+  users: User[];
+} 
+
+function Leaderboard({ users }: LeaderboardProps) {  
   return (
     <div className={styles.leaderboardContainer}>
+      <Head>
+        <title>Ranking | move.it</title>
+      </Head>
+      
       <Sidebar />
 
       <strong>Leaderboard</strong>
@@ -24,16 +39,15 @@ export default function Leaderboard() {
 
         <tbody>
           {users.map((user, index) => {
-            console.log(index);
-
             return (
-              <UserItem key={index}
+              <UserItem 
+                key={index}
                 position={index}
                 name={user.name}
                 image={user.image}
                 level={user.level}
-                completedChallenges={user.completedChallenges}
-                currentExperience={user.currentExperience}
+                challengesCompleted={user.challengesCompleted}
+                totalExperience={user.totalExperience}
               />
             );
           })}
@@ -41,4 +55,27 @@ export default function Leaderboard() {
       </table>
     </div>
   );
+}
+
+export default withAuth(Leaderboard);
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession(ctx);
+
+  if (!session) {
+    ctx.res.statusCode = 403;
+    return { 
+      props: {} 
+    }
+  }
+
+  const users = await prisma.user.findMany({
+    orderBy: { totalExperience: 'desc' }
+  });
+
+  return {
+    props: {
+      users
+    }
+  }
 }

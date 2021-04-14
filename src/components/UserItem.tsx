@@ -5,8 +5,8 @@ interface UserItemProps {
   name: string;
   image: string;
   level: number;
-  completedChallenges: number;
-  currentExperience: number;
+  challengesCompleted: number;
+  totalExperience: number;
 }
 
 export function UserItem(props: UserItemProps) {
@@ -27,12 +27,12 @@ export function UserItem(props: UserItemProps) {
       </td>
 
       <td>
-        <span>{props.completedChallenges} </span>
+        <span>{props.challengesCompleted} </span>
         <span>completados</span>
       </td>
 
       <td>
-        <span>{props.currentExperience} </span>
+        <span>{props.totalExperience} </span>
         <span>xp</span>
       </td>
     </tr>

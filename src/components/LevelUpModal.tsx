@@ -6,13 +6,13 @@ import styles from '../styles/components/LevelUpModal.module.css';
 export function LevelUpModal() {
   const { 
     level, 
-    currentExperience, 
+    totalExperience, 
     challengesCompleted, 
     closeLevelUpModal 
   } = useContext(ChallengesContext);
 
   const thumbnailUrl = encodeURIComponent(`
-    http://localhost:3000/api/thumbnail.png?level=${level}&currentExperience=${currentExperience}&challengesCompleted=${challengesCompleted}
+    https://moveit-brunojpng.vercel.app/api/thumbnail.png?level=${level}&totalExperience=${totalExperience}&challengesCompleted=${challengesCompleted}
   `);
 
   return (
@@ -29,7 +29,7 @@ export function LevelUpModal() {
 
         <footer>
           <a 
-            href={`https://twitter.com/intent/tweet?url=${thumbnailUrl}`}
+            href={`https://twitter.com/intent/tweet?text=${thumbnailUrl}`}
             target="_blank" 
             rel="nofollow"
           >

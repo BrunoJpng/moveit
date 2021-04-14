@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
-
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
-import { getSession, signOut, Session } from 'next-auth/client';
-import { useRouter } from 'next/dist/client/router';
+import { getSession, signOut } from 'next-auth/client';
 
 import { CompletedChallenges } from "../components/CompletedChallenges";
 import { Countdown } from "../components/Countdown";
@@ -15,29 +12,26 @@ import { Sidebar } from '../components/Sidebar';
 import { CountdownProvider } from '../contexts/CountdownContext';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
 
+import withAuth from '../utils/withAuth';
+
+import { prisma } from '../prisma';
+
 import styles from '../styles/pages/Home.module.css'
 
 interface HomeProps {
-  session: Session;
   level: number;
   currentExperience: number;
   challengesCompleted: number;
+  totalExperience: number;
 }
 
-export default function Home(props: HomeProps) {
-  const router = useRouter();
-  const session = props.session;
-
-  useEffect(() => {
-    if (!session)
-      router.push('/login');
-  }, [session]);
-
+function Home(props: HomeProps) {
   return (
     <ChallengesProvider
       level={props.level}
       currentExperience={props.currentExperience}
       challengesCompleted={props.challengesCompleted}
+      totalExperience={props.totalExperience}
     >
       <div className={styles.container}>
         <Head>
@@ -50,7 +44,8 @@ export default function Home(props: HomeProps) {
         <CountdownProvider>
           <section>
             <div>
-              <Profile image={session?.user.image} name={session?.user.name} />
+              <Profile />
+              <button onClick={() => signOut()}>LOGOUT</button>
               <CompletedChallenges />
               <Countdown />
             </div>
@@ -65,16 +60,36 @@ export default function Home(props: HomeProps) {
   )
 }
 
+export default withAuth(Home);
+
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { level, currentExperience, challengesCompleted } = ctx.req.cookies;
   const session = await getSession(ctx);
+
+  if (!session) {
+    ctx.res.statusCode = 403;
+    return { 
+      props: {} 
+    }
+  }
+
+  const userAccessToken = await prisma.session.findUnique({
+    where: {
+      accessToken: session.accessToken
+    }
+  });
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userAccessToken.userId
+    }
+  });
 
   return {
     props: {
       session,
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      challengesCompleted: Number(challengesCompleted)
+      level: user.level,
+      currentExperience: user.currentExperience,
+      challengesCompleted: user.challengesCompleted
     }
   }
 }

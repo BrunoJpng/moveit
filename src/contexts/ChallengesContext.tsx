@@ -1,5 +1,7 @@
 import { createContext, useState, ReactNode, useEffect } from 'react';
-import Cookies from 'js-cookie';
+import { useSession } from 'next-auth/client';
+
+import axios from 'axios';
 
 import { LevelUpModal } from '../components/LevelUpModal';
 
@@ -15,6 +17,7 @@ interface ChallengesContextData {
   level: number;
   currentExperience: number;
   challengesCompleted: number;
+  totalExperience: number;
   experienceToNextLevel: number;
   activeChallenge: Challenge;
   levelUp: () => void;
@@ -29,6 +32,7 @@ interface ChallengesProviderProps {
   level: number;
   currentExperience: number;
   challengesCompleted: number;
+  totalExperience: number;
 }
 
 export const ChallengesContext = createContext({} as ChallengesContextData);
@@ -40,21 +44,18 @@ export function ChallengesProvider({
   const [level, setLevel] = useState(rest.level ?? 1);
   const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
   const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
-
+  const [totalExperience, setTotalExperience] = useState(rest.totalExperience ?? 0);
   const [activeChallenge, setActiveChallenge] = useState(null);
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
+  const [session] = useSession();
+
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
+  const accessToken = session?.accessToken;
 
   useEffect(() => {
     Notification.requestPermission();
   }, []);
-
-  useEffect(() => {
-    Cookies.set('level', String(level));
-    Cookies.set('currentExperience', String(currentExperience));
-    Cookies.set('challengesCompleted', String(challengesCompleted));
-  }, [level, currentExperience, challengesCompleted]);
 
   function levelUp() {
     setLevel(level + 1);
@@ -84,7 +85,7 @@ export function ChallengesProvider({
     setActiveChallenge(null);
   }
 
-  function completeChallenge() {
+  async function completeChallenge() {
     if (!activeChallenge) {
       return;
     }
@@ -92,15 +93,26 @@ export function ChallengesProvider({
     const { amount } = activeChallenge;
 
     let finalExperience = currentExperience + amount;
-
+    let isLevelUpdated: boolean;
+    
     if (finalExperience >= experienceToNextLevel) {
       finalExperience = finalExperience - experienceToNextLevel;
       levelUp();
+      isLevelUpdated = true;
     }
 
+    setTotalExperience(totalExperience + amount);
     setCurrentExperience(finalExperience);
     setActiveChallenge(null);
     setChallengesCompleted(challengesCompleted + 1);
+    
+    await axios.put('/api/completeChallenge', {
+      level: isLevelUpdated ? level + 1 : level,
+      challengesCompleted: challengesCompleted + 1,
+      currentExperience: finalExperience,
+      totalExperience: totalExperience + amount,
+      accessToken,
+    });
   }
 
   return (
@@ -108,6 +120,7 @@ export function ChallengesProvider({
       level,
       currentExperience,
       challengesCompleted,
+      totalExperience,
       experienceToNextLevel,
       levelUp,
       startNewChallenge,

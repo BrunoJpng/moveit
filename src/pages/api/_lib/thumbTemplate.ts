@@ -1,6 +1,6 @@
 interface ThumbnailProps {
   level: string;
-  currentExperience: string;
+  totalExperience: string;
   challengesCompleted: string;
 }
 
@@ -77,7 +77,7 @@ export default function getThumbnailTemplate(props: ThumbnailProps) {
           text-shadow: 0px 10px 16px rgba(89, 101, 224, 0.3);
           text-align: center;
           color: var(--blue);
-          background: url('http://localhost:3000/icons/levelup.svg') no-repeat center;
+          background: url('https://moveit-brunojpng.vercel.app/icons/levelup.svg') no-repeat center;
           background-size: contain;
         }
         
@@ -129,7 +129,7 @@ export default function getThumbnailTemplate(props: ThumbnailProps) {
 
             <div>
               <p>EXPERIÊNCIA</p>
-              <span class="number">${props.currentExperience} </span>
+              <span class="number">${props.totalExperience} </span>
               <span>xp</span>
             </div>
 

@@ -6,14 +6,13 @@ const isDev = !process.env.AWS_REGION
 
 export default async function(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { level, currentExperience, challengesCompleted } = req.query;
-    console.log(req)
+    const { level, totalExperience, challengesCompleted } = req.query;
 
     if (!level) {
       throw new Error('Level is required');
     }
-    if (!currentExperience) {
-      throw new Error('Current Experience is required');
+    if (!totalExperience) {
+      throw new Error('Total Experience is required');
     }
     if (!challengesCompleted) {
       throw new Error('Challenges Completed is required');
@@ -21,7 +20,7 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
     const html = getThumbnailTemplate({
       level: String(level), 
-      currentExperience: String(currentExperience), 
+      totalExperience: String(totalExperience), 
       challengesCompleted: String(challengesCompleted),
     });
 

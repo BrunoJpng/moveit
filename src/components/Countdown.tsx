@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CountdownContext } from '../contexts/CountdownContext';
 import styles from '../styles/components/Countdown.module.css';
 
@@ -14,6 +14,9 @@ export function Countdown() {
   } = useContext(CountdownContext);
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
+  const time = minutes * 60 + seconds;
+  const [totalTime] = useState(time);
+  const countdownProgress = 100 - Math.round(time * 100) / totalTime;
 
   return (
     <div>
@@ -35,6 +38,7 @@ export function Countdown() {
           className={styles.countdownButton}
         >
           Ciclo encerrado
+          <img src="/icons/check.svg" alt="Encerrado"/>
         </button>
       ) : (
           <>
@@ -45,6 +49,7 @@ export function Countdown() {
                 onClick={resetCountdown}
               >
                 Abandonar ciclo
+                <img src="/icons/close.svg" alt="Encerrar"/>
               </button>
             ) : (
                 <button
@@ -53,10 +58,14 @@ export function Countdown() {
                   onClick={startCountdown}
                 >
                   Iniciar um ciclo
+                  <img src="/icons/play.svg" alt="Iniciar"/>
                 </button>
               )}
           </>
         )}
+      <div>
+        <div style={{ width: `${countdownProgress}%` }} />
+      </div>
     </div>
   );
 }
