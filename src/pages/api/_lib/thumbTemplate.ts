@@ -12,6 +12,24 @@ export default function getThumbnailTemplate(props: ThumbnailProps) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
+      <meta name="description" content="Avancei para o próximo level no move.it!!!" />
+
+      <meta property="og:site_name" content="Move.it" />
+
+      <meta property="og:title" content="Move.it" />
+      <meta property="og:description" content="Avancei para o próximo level no move.it!!!" />
+
+      <meta property="og:image" content="${process.env.PUBLIC_NEXTAUTH_URL}/api/thumbnail.png?level=${props.level}&totalExperience=${props.totalExperience}&challengesCompleted=${props.challengesCompleted}" />
+      <meta property="og:image:type" content="image/png" />
+
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      <meta name="twitter:title" content="Move.it" />
+      <meta name="twitter:description" content="Avancei para o próximo level no move.it!!!" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="${process.env.PUBLIC_NEXTAUTH_URL}/api/thumbnail.png?level=${props.level}&totalExperience=${props.totalExperience}&challengesCompleted=${props.challengesCompleted}" />
+
       <title>Thumbnail</title>
     
       <link rel="shortcut icon" href="favicon.png" type="image/png" />
@@ -77,7 +95,7 @@ export default function getThumbnailTemplate(props: ThumbnailProps) {
           text-shadow: 0px 10px 16px rgba(89, 101, 224, 0.3);
           text-align: center;
           color: var(--blue);
-          background: url('https://moveit-brunojpng.vercel.app/icons/levelup.svg') no-repeat center;
+          background: url('${process.env.PUBLIC_NEXTAUTH_URL}/icons/levelup.svg') no-repeat center;
           background-size: contain;
         }
         

@@ -9,8 +9,8 @@
   flex-direction: column;
 }
 
-.leaderboardContainer aside main a:first-child {
-  opacity: 0.5;
+.leaderboardContainer aside main a:last-child svg {
+  opacity: 1;
 }
 
 .leaderboardContainer aside main a:last-child::before {
@@ -21,6 +21,7 @@
   left: 0;
   border-radius: 0 5px 5px 0;
   background: var(--blue);
+  cursor: default;
 }
 
 .leaderboardContainer strong {

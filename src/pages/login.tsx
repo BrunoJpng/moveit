@@ -2,19 +2,11 @@ import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn } from "next-auth/client";
 
-import { Input } from "../components/Input";
+import { FaGithub } from 'react-icons/fa';
 
 import styles from '../styles/pages/Login.module.css'
 
 export default function Login() {
-  function handleLogin(value: string) {
-    signIn(
-      "github",
-      { callbackUrl: `${process.env.NEXTAUTH_URL}` },
-      { login: value }
-    );
-  }
-
   return (
     <div className={styles.container}>
       <Head>
@@ -27,12 +19,10 @@ export default function Login() {
         <img src="logo.svg" alt="Move.it logo" />
         <strong>Bem-vindo</strong>
 
-        <p>
-          <img src="icons/github.svg" alt="Github logo" />
+        <button onClick={() => signIn("github")}>
+          <FaGithub size={50} />
           Faça login com seu Github para começar
-        </p>
-
-        <Input handleSubmit={(value) => handleLogin(value)} />
+        </button>
       </div>
     </div>
   );
@@ -51,8 +41,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: {
-      session,
-    }
+    props: {}
   }
 }

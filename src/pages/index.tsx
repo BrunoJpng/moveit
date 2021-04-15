@@ -45,7 +45,6 @@ function Home(props: HomeProps) {
           <section>
             <div>
               <Profile />
-              <button onClick={() => signOut()}>LOGOUT</button>
               <CompletedChallenges />
               <Countdown />
             </div>

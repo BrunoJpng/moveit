@@ -65,7 +65,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!session) {
     ctx.res.statusCode = 403;
     return { 
-      props: {} 
+      props: {
+        users: []
+      } 
     }
   }
 
@@ -75,7 +77,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      users
+      users,
+      session
     }
   }
 }

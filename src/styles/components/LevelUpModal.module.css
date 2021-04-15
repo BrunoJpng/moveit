@@ -51,23 +51,32 @@
   font-size: 0px;
 }
 
-.container footer {
+.container footer a {
+  height: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   border-top: 1px solid var(--gray-line);
   border-radius: 0 0 5px 5px;
   padding: 1.75rem 0;
   margin: 2rem -3rem 0;
+  
   background: #f5fcff;
   box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.05);
-}
-
-.container footer a {
   color: var(--blue-twitter);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-weight: 600;
+  font-size: 1.25rem;
+
+  transition: all 0.2s;
 }
 
-.container footer img {
+.container footer a:hover {
+  background: var(--blue-twitter);
+  color: var(--white);
+}
+
+.container footer svg {
   margin-left: 1rem;
 }

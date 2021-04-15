@@ -1,4 +1,8 @@
 import Link from 'next/link';
+import { signOut } from 'next-auth/client';
+
+import { FiHome, FiAward, FiLogOut } from 'react-icons/fi'
+
 import styles from '../styles/components/Sidebar.module.css';
 
 export function Sidebar() {
@@ -8,15 +12,15 @@ export function Sidebar() {
 
       <main>
         <Link href="/">
-          <a><img src="/icons/home.svg" alt="Home" /></a>
+          <a><FiHome size={32} /></a>
         </Link>
 
         <Link href="/leaderboard">
-          <a><img src="/icons/award.svg" alt="Ranking" /></a>
+          <a><FiAward size={32} /></a>
         </Link>
       </main>
 
-      <div></div>
+      <FiLogOut size={32} onClick={() => signOut()} />
     </aside>
   );
 }

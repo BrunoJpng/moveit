@@ -12,6 +12,7 @@
 
   background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
   filter: drop-shadow(0px 0px 60px rgba(0, 0, 0, 0.05));
+  color: var(--blue);
 }
 
 .sidebarContainer main {
@@ -28,4 +29,13 @@
 
 .sidebarContainer main a + a {
   margin-top: 2.5rem;
+}
+
+.sidebarContainer svg {
+  opacity: 0.5;
+}
+
+.sidebarContainer svg:hover {
+  cursor: pointer;
+  opacity: 1;
 }

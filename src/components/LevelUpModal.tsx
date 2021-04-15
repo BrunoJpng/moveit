@@ -1,4 +1,6 @@
 import { useContext } from 'react';
+import { FaTwitter } from 'react-icons/fa';
+
 import { ChallengesContext } from '../contexts/ChallengesContext';
 
 import styles from '../styles/components/LevelUpModal.module.css';
@@ -29,12 +31,12 @@ export function LevelUpModal() {
 
         <footer>
           <a 
-            href={`https://twitter.com/intent/tweet?text=${thumbnailUrl}`}
+            href={`https://twitter.com/intent/tweet?url=${thumbnailUrl}`}
             target="_blank" 
             rel="nofollow"
           >
             Compartilhar no Twitter 
-            <img src="/icons/twitter.svg" alt="Twitter"/>
+            <FaTwitter size={24} />
           </a>
         </footer>
       </div>
