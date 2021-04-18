@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
-import { getSession, signOut } from 'next-auth/client';
+import { getSession } from 'next-auth/client';
 
 import { CompletedChallenges } from "../components/CompletedChallenges";
 import { Countdown } from "../components/Countdown";
@@ -88,7 +88,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       session,
       level: user.level,
       currentExperience: user.currentExperience,
-      challengesCompleted: user.challengesCompleted
+      challengesCompleted: user.challengesCompleted,
+      totalExperience: user.totalExperience
     }
   }
 }

@@ -13,9 +13,7 @@ export function LevelUpModal() {
     closeLevelUpModal 
   } = useContext(ChallengesContext);
 
-  const thumbnailUrl = encodeURIComponent(`
-    https://moveit-brunojpng.vercel.app/api/thumbnail.png?level=${level}&totalExperience=${totalExperience}&challengesCompleted=${challengesCompleted}
-  `);
+  const thumbnailUrl = `${process.env.PUBLIC_NEXTAUTH_URL}/api/thumbnail.png?level=${level}&totalExperience=${totalExperience}&challengesCompleted=${challengesCompleted}`;
 
   return (
     <div className={styles.overlay}>
@@ -31,7 +29,7 @@ export function LevelUpModal() {
 
         <footer>
           <a 
-            href={`https://twitter.com/intent/tweet?url=${thumbnailUrl}`}
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(thumbnailUrl)}`}
             target="_blank" 
             rel="nofollow"
           >
