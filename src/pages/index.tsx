@@ -16,7 +16,7 @@ import withAuth from '../utils/withAuth';
 
 import { prisma } from '../prisma';
 
-import styles from '../styles/pages/Home.module.css'
+import { Container, Section } from '../styles/pages/Home'
 
 interface HomeProps {
   level: number;
@@ -33,16 +33,16 @@ function Home(props: HomeProps) {
       challengesCompleted={props.challengesCompleted}
       totalExperience={props.totalExperience}
     >
-      <div className={styles.container}>
+      <Container>
         <Head>
           <title>Início | move.it</title>
         </Head>
 
-        <ExperienceBar />
         <Sidebar />
+        <ExperienceBar />
 
         <CountdownProvider>
-          <section>
+          <Section>
             <div>
               <Profile />
               <CompletedChallenges />
@@ -52,9 +52,9 @@ function Home(props: HomeProps) {
             <div>
               <ChallengeBox />
             </div>
-          </section>
+          </Section>
         </CountdownProvider>
-      </div>
+      </Container>
     </ChallengesProvider>
   )
 }

@@ -10,7 +10,7 @@ import { User } from '@prisma/client';
 
 import withAuth from "../utils/withAuth";
 
-import styles from "../styles/pages/Leaderboard.module.css";
+import { Container, Table } from "../styles/pages/Leaderboard";
 
 interface LeaderboardProps {
   users: User[];
@@ -18,7 +18,7 @@ interface LeaderboardProps {
 
 function Leaderboard({ users }: LeaderboardProps) {  
   return (
-    <div className={styles.leaderboardContainer}>
+    <Container>
       <Head>
         <title>Ranking | move.it</title>
       </Head>
@@ -27,7 +27,7 @@ function Leaderboard({ users }: LeaderboardProps) {
 
       <strong>Leaderboard</strong>
 
-      <table>
+      <Table>
         <thead>
           <tr>
             <th>Posição</th>
@@ -52,8 +52,8 @@ function Leaderboard({ users }: LeaderboardProps) {
             );
           })}
         </tbody>
-      </table>
-    </div>
+      </Table>
+    </Container>
   );
 }
 

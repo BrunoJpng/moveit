@@ -1,10 +1,37 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
 
 const title = "Move.it"
 const description = "O move.it é um app que une a técnica de Pomodoro com a realização de exercícios físicos para quem passa muito tempo na frente do computador."
 const thumbnailUrl = `${process.env.PUBLIC_NEXTAUTH_URL}/moveit.png`
 
 export default class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext) {
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      sheet.seal();
+    }
+  }
+
   render() {
     return (
       <Html>

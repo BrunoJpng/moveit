@@ -4,27 +4,25 @@ import { getSession, signIn } from "next-auth/client";
 
 import { FaGithub } from 'react-icons/fa';
 
-import styles from '../styles/pages/Login.module.css'
+import { Container, Main, Button } from '../styles/pages/Login';
 
 export default function Login() {
   return (
-    <div className={styles.container}>
+    <Container>
       <Head>
         <title>Login | move.it</title>
       </Head>
-
-      <img src="simbolo.svg" alt="Símbolo" />
       
-      <div>
+      <Main>
         <img src="logo.svg" alt="Move.it logo" />
         <strong>Bem-vindo</strong>
 
-        <button onClick={() => signIn("github")}>
+        <Button onClick={() => signIn("github")}>
           <FaGithub size={50} />
           Faça login com seu Github para começar
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Main>
+    </Container>
   );
 }
 

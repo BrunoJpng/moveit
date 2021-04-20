@@ -1,4 +1,4 @@
-import styles from '../styles/components/UserItem.module.css';
+import { Container, UserContainer } from '../styles/components/UserItem';
 
 interface UserItemProps {
   position: number;
@@ -11,10 +11,10 @@ interface UserItemProps {
 
 export function UserItem(props: UserItemProps) {
   return (
-    <tr className={styles.userItemContainer}>
-      <td className={styles.positionContainer}>{props.position + 1}</td>
+    <Container>
+      <td>{props.position + 1}</td>
 
-      <td className={styles.userInfoContainer}>
+      <UserContainer>
         <img src={props.image} alt={props.name} />
 
         <div>
@@ -24,7 +24,7 @@ export function UserItem(props: UserItemProps) {
             {props.level}
           </p>
         </div>
-      </td>
+      </UserContainer>
 
       <td>
         <span>{props.challengesCompleted} </span>
@@ -35,6 +35,6 @@ export function UserItem(props: UserItemProps) {
         <span>{props.totalExperience} </span>
         <span>xp</span>
       </td>
-    </tr>
+    </Container>
   );
 }

@@ -3,7 +3,7 @@ import { FaTwitter } from 'react-icons/fa';
 
 import { ChallengesContext } from '../contexts/ChallengesContext';
 
-import styles from '../styles/components/LevelUpModal.module.css';
+import { Overlay, Container } from '../styles/components/LevelUpModal';
 
 export function LevelUpModal() {
   const { 
@@ -16,8 +16,8 @@ export function LevelUpModal() {
   const thumbnailUrl = `${process.env.PUBLIC_NEXTAUTH_URL}/api/thumbnail.png?level=${level}&totalExperience=${totalExperience}&challengesCompleted=${challengesCompleted}`;
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.container}>
+    <Overlay>
+      <Container>
         <header>{level}</header>
 
         <strong>Parabéns</strong>
@@ -37,7 +37,7 @@ export function LevelUpModal() {
             <FaTwitter size={24} />
           </a>
         </footer>
-      </div>
-    </div>
+      </Container>
+    </Overlay>
   );
 }
